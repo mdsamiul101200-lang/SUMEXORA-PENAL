@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --glow-purple: rgba(139, 92, 246, 0.4);
+  --glow-blue: rgba(0, 212, 255, 0.3);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4c1d95 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #4c1d95;
+  border-radius: 3px;
+}
+
+body {
+  background: #05050a;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Glass card */
+.glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.glass-strong {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 100%);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Neon text */
+.text-neon-purple {
+  background: linear-gradient(90deg, #a78bfa, #c084fc, #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gradient border */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #8b5cf6, #00d4ff, #b026ff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Sidebar active indicator */
+.nav-item-active {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.25), transparent);
+  border-left: 3px solid #8b5cf6;
+}
+
+/* Stat card gradients */
+.stat-purple { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(109,40,217,0.1)); }
+.stat-blue { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(59,130,246,0.1)); }
+.stat-green { background: linear-gradient(135deg, rgba(0,255,157,0.15), rgba(16,185,129,0.1)); }
+.stat-orange { background: linear-gradient(135deg, rgba(251,146,60,0.2), rgba(234,88,12,0.1)); }
