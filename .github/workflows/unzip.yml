@@ -1,0 +1,57 @@
+
+name: SUMEXORA PENAL - Auto Extract ZIP
+
+on:
+  push:
+    paths:
+      - 'SUMEXORA-PENAL.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Extract Project ZIP
+        run: |
+          set -e
+
+          ZIP_FILE="SUMEXORA-PENAL.zip"
+
+          if [ ! -f "$ZIP_FILE" ]; then
+            echo "Project ZIP not found!"
+            exit 1
+          fi
+
+          mkdir -p temp_extract
+
+          unzip -o "$ZIP_FILE" -d temp_extract
+
+          if [ -d "temp_extract/SUMEXORA-PENAL" ]; then
+            cp -a temp_extract/SUMEXORA-PENAL/. .
+          else
+            cp -a temp_extract/. .
+          fi
+
+          rm -rf temp_extract
+          rm -f "$ZIP_FILE"
+
+      - name: Commit Extracted Files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Extract SUMEXORA PENAL project"
+            git push
+          else
+            echo "No changes to commit."
+          fi
